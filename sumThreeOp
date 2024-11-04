@@ -1,0 +1,34 @@
+//Inputs
+const inNumberA = op.inFloat('Number A');
+const inNumberB = op.inFloat('Number B');
+const inNumberC = op.inFloat('Number C');
+
+//Output
+const outResult = op.outNumber('result');
+
+inNumberA.onChange = onNumberChanged;
+inNumberB.onChange = onNumberChanged;
+inNumberC.onChange = onNumberChanged;
+
+function onNumberChanged(){
+    let x = inNumberA.get();
+    if (isNaN(x)){
+        x = 0;
+    }
+    let y = inNumberB.get();
+    if (isNaN(y)){
+        y = 0;
+    }
+    let z = inNumberC.get();
+    if (isNaN(z)){
+        z = 0;
+    }
+    
+    const res = add(x,y,z);
+    outResult.set(res);
+}
+
+function add(a, b, c){
+    const res = a + b + c;
+    return res;
+}
