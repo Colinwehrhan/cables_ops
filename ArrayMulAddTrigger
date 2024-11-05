@@ -1,0 +1,35 @@
+const inExe = op.inTriggerButton('Run');
+const inArr = op.inArray('Input Array');
+const inMul = op.inFloat('Multipler');
+const inAdd = op.inFloat('Adder');
+
+const outFinished = op.outTrigger('Finished');
+const outArr = op.outArray('Output Array');
+
+inExe.onTriggered = run;
+
+function run()
+{
+    const arr = inArr.get();
+    // console.log(arr);
+
+    if (!arr)
+    {
+        outArr.set(null);
+        return;
+    }
+
+    const mul = inMul.get();
+    const add = inAdd.get();
+
+    const result = [];
+    for (let i = 0; i < arr.length; i++)
+    {
+        const v = (arr[i] * mul) + add;
+        // console.log("here", v);
+        result.push(v);
+    }
+
+    outArr.setRef(result);
+    outFinished.trigger();
+}
