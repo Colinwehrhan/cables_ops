@@ -1,0 +1,33 @@
+const inArr = op.inArray('Input Array');
+const inMul = op.inFloat('Multipler');
+const inAdd = op.inFloat('Adder');
+
+const outArr = op.outArray('Output Array');
+
+inArr.onChange = run;
+inMul.onChange = inAdd.onChange = run;
+
+function run()
+{
+    const arr = inArr.get();
+    // console.log(arr);
+
+    if (!arr)
+    {
+        outArr.set(null);
+        return;
+    }
+
+    const mul = inMul.get();
+    const add = inAdd.get();
+
+    const result = [];
+    for (let i = 0; i < arr.length; i++)
+    {
+        const v = (arr[i] * mul) + add;
+        // console.log("here", v);
+        result.push(v);
+    }
+
+    outArr.setRef(result);
+}
