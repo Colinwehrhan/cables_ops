@@ -1,0 +1,22 @@
+const inObj = op.inObject('Input object');
+const inAge = op.inInt('Age');
+const outObj = op.outObject('Output object');
+
+inObj.onChange = update;
+inAge.onChange = update;
+
+function update(){
+    const obj = inObj.get();
+    if (!obj){
+        outObj.set(null);
+        return;
+    }
+
+    let age = inAge.get();
+    age = Math.round(age);
+    age = Math.max(0, age);
+
+    obj.age = age;
+
+    outObj.setRef(obj);
+}
