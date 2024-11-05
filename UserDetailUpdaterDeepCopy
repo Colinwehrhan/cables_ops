@@ -1,0 +1,38 @@
+const inObj = op.inObject('Input object');
+const inAge = op.inInt('Age');
+const inCity = op.inString('City');
+const outObj = op.outObject('Output object');
+
+inObj.onChange = update;
+inAge.onChange = update;
+inCity.onChange = update;
+
+function update(){
+    const tmp = inObj.get();
+    if (!tmp){
+        outObj.set(null);
+        return;
+    }
+
+    // shadow copy, shadow copys do not work for nested properties. It will not copy
+    //const obj = {...tmp};
+    
+    // deep copy, lol makes it a JSON wtf
+    const strObj = JSON.stringify(tmp);
+    console.log(strObj);
+    const deepObj = JSON.parse(strObj);
+    
+    // oneline const deepOBJ = JSON.parse(SJON.stringify(tmp))
+
+    let age = inAge.get();
+    age = Math.round(age);
+    age = Math.max(0, age);
+
+    deepObj.age = age;
+    
+    // Set City
+    const city = inCity.get();
+    deepObj.address.city = city;
+
+    outObj.setRef(deepObj);
+}
